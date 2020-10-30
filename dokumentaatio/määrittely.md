@@ -9,3 +9,4 @@
 
 * Kuulun tietojenkäsittelytieteen kandidaatti (TKT) opinto-ohjelmaan.
 * Koodi, kommentit ja dokumentit kirjoitetaan suomeksi.
+* Ohjelmointikielenä käytän Javaa
