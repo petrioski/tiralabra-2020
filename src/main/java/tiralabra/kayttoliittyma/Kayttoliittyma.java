@@ -1,4 +1,4 @@
-package tiralabra.ui;
+package tiralabra.kayttoliittyma;
 import java.util.Scanner;
 
 public class Kayttoliittyma {

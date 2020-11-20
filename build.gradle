@@ -16,6 +16,10 @@ plugins {
     id 'jacoco'
 }
 
+
+sourceCompatibility = '1.11'
+
+
 repositories {
     // Use jcenter for resolving dependencies.
     // You can declare any Maven/Ivy/file repository here.
@@ -26,8 +30,19 @@ dependencies {
     // This dependency is used by the application.
     implementation 'com.google.guava:guava:29.0-jre'
 
+    implementation 'com.google.code.gson:gson:2.8.6'
+
     // Use JUnit test framework
     testImplementation 'junit:junit:4.13'
+
+    // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.11.3'
+
+    // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.11.3'
+
+
+
 }
 
 application {

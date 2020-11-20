@@ -3,12 +3,65 @@
  */
 
 package tiralabra;
-import tiralabra.ui.Kayttoliittyma;
+import java.io.IOException;
+// import java.util.HashMap;
+import java.util.ArrayList;
+
+import tiralabra.api.Yhteys;
+import tiralabra.logiikka.Dijkstra;
+import tiralabra.mallit.Pysakki;
+
 
 public class App {
-    Kayttoliittyma kl = new Kayttoliittyma();
 
-    public static void main(String[] args) {
-        kl.kaynnista();
+    public static void main(String[] args) throws IOException, InterruptedException {
+        // Kayttoliittyma kl = new Kayttoliittyma();
+        // kl.kaynnista();
+        ArrayList<ArrayList<Pysakki>> kartta = new ArrayList<ArrayList<Pysakki>>();
+
+        Yhteys y = new Yhteys();
+
+        String kysely = "{stop(id: \"HSL:1140447\") {gtfsId name code vehicleMode lat lon}}" ;
+
+
+        y.teePyynto("https://api.digitransit.fi/routing/v1/routers/hsl/index/graphql", kysely);
+
+
+        int pysakit = 6;
+        alustaKartta(kartta, pysakit);
+
+        Dijkstra algo = new Dijkstra(pysakit);
+        algo.etsiPolut(kartta, 0, 6);
+        var t = algo.tulos();
+
+        t.entrySet().forEach(entry->{
+            System.out.println(entry.getKey() + " " + entry.getValue());
+        });
+    }
+
+    private static void alustaKartta(ArrayList<ArrayList<Pysakki>> kartta, int pysakit) {
+        for (int i = 0; i < pysakit; i++) {
+            ArrayList<Pysakki> p = new ArrayList<Pysakki>();
+            kartta.add(p);
+        }
+
+        kartta.get(0).add(new Pysakki(1,9));
+        kartta.get(0).add(new Pysakki(2,6));
+        kartta.get(0).add(new Pysakki(3,5));
+
+        kartta.get(1).add(new Pysakki(4,2));
+        kartta.get(1).add(new Pysakki(2,2));
+
+        kartta.get(2).add(new Pysakki(1,2));
+        kartta.get(2).add(new Pysakki(0,6));
+        kartta.get(2).add(new Pysakki(3,4));
+        kartta.get(2).add(new Pysakki(4,10));
+
+        kartta.get(3).add(new Pysakki(2,4));
+        kartta.get(3).add(new Pysakki(4,3));
+        kartta.get(3).add(new Pysakki(5,10));
+
+        kartta.get(4).add(new Pysakki(5,1));
+        kartta.get(4).add(new Pysakki(6,1));
     }
 }
